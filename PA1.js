@@ -8,32 +8,55 @@ const _z = Symbol('z');
  */
 // 
 class Vec3 {
+    /**
+    * Construct a vec3
+    *
+    * @param {vec3} x an X coordinate
+    * @param {vec3} y an y coordinate
+    * @param {vec3} z an z coordinate
+    * @returns {vec3} a constructed Vec3 with values (x,y,z)
+    */
     constructor(x = 0, y = 0, z = 0){
         this[_x] = x
         this[_y] = y
         this[_z] = z
     }
+    /**
+    * get the x value of a vec3 object
+    * @returns {Number} the x value of a vec3 object
+    */
     get x() {
         return this[_x]
     }
+    /**
+    * get the y value of a vec3 object
+    * @returns {Number} the y value of a vec3 object
+    */
     get y() {
         return this[_y]
     }
+    /**
+    * get the z value of a vec3 object
+    * @returns {Number} the z value of a vec3 object
+    */
     get z() {
         return this[_z]
     }
     /**
-     * Creates a new vector with the given properties.
-     * @return Vec3
-     */
+    * Copy a vec3 object
+    *
+    * @returns {vec3} a copy of a given Vec3 object
+    */
     copy() {
         var newVec = new Vec3(this.x, this.y, this.z)
         return newVec;
     }
     /**
-     * Returns a new vector instance with the same property values as this instance.
-     * @return Vec3
-     */
+    * Add 2 vec3 objects together
+    *
+    * @param {vec3} v A vec3 object
+    * @returns {vec3} The sum of the two vectors
+    */
     add(v) {
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the add function was not of type Vec3');
@@ -47,9 +70,11 @@ class Vec3 {
         return newVec;
     }
     /**
-     * This method must return a new vector equal to the difference between this vector and the given vector.
-     * @return Vec3
-     */
+    * Subtract 2 vec3 objects together
+    *
+    * @param {vec3} v A vec3 object
+    * @returns {vec3} The difference of the two vectors
+    */
     sub(v) {
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the add function was not of type Vec3');
@@ -62,9 +87,11 @@ class Vec3 {
         return newVec;
     }
     /**
-     * Scales the properties of this vector by the given number and returns the result as a new vector.
-     * @return Vec3
-     */
+    * Scale a vec3 object by a given amount  
+    *
+    * @param {number} s A number
+    * @returns {vec3} A scaled vec3 object
+    */
     scale(s) {
         if(typeof(s) !== 'number') {
             throw new TypeError('The given parameter for the scale function was not of type Number');
@@ -77,9 +104,11 @@ class Vec3 {
         return newVec;
     }
     /**
-     * This method must compute the dot product of this vector and the given vector, returning the resulting Number.
-     * @return Number
-     */
+    * Generate the dot product between two vec3 objects  
+    *
+    * @param {vec3} v A vec3 object
+    * @returns {number} The dot product result of two vectors
+    */
     dot(v){
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the add function was not of type Vec3');
@@ -88,40 +117,65 @@ class Vec3 {
         return dotProd;
     }
     /**
-     * This method must compute the cross product of this vector and the given vector.
-     * @return Vec3
-     */
+    * Generate the cross product of two vectors  
+    *
+    * @param {vec3} v A vector
+    * @returns {vec3} The cross product between the two given vectors
+    */
     cross(v){
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the cross function was not of type Vec3');
         }
-    }
-    /**
-     * Returns the angle between this vector and the x axis.
-     * @return Number
-     */
-    angle(){
+        var newX = (this.y * v.z) - (this.z * v.y)
+        var newY = (this.z * v.x) - (this.x * v.z)
+        var newZ = (this.x * v.y) - (this.y * v.x)
 
+        var newVec = new Vec3(newX,newY,newZ)
+        return newVec
     }
     /**
-     * Returns the angle in radians between this vector and the given vector.
-     * @return Number
-     */
+    * Measure the angle between this vector and the x-axis  
+    *
+    * @returns {Number} The angle value
+    */
+    angle(){
+        var angle = Math.atan2(this.y,this.x)
+        return angle
+        
+    }
+    /**
+    * Measure the angle between this vector and the given vector 
+    *
+    * @param {vec3} v A vector
+    * @returns {vec3} The angle value
+    */
     angleBetween(v){
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the angleBetween function was not of type Vec3');
         }
-        var lenA = v.length()
-        var lenB = this.length()
-        var angleTemp = Math.cos(this.dot(v) / (lenA * lenB))
-        var angle = Math.acos(angleTemp)
-        return angle
+        if(this.x == 0 && this.y == 0  && this.z == 0 || v.x == 0 && v.y == 0 && v.z == 0) {
+            throw new Error("Since one of the Vectors are zero vector, is it impossible to measure the angle between them")
+        }
+        var normA = this.normalize()
+        var normB = v.normalize()
+        var dotVal = normA.dot(normB)
+
+        if(dotVal > 1) {
+          return 0
+        }
+        else if(dotVal < -1) {
+          return Math.PI
+        }
+        else {
+          return Math.acos(dotVal)
+        }
 
     }
     /**
-     * This method must compute the length of this vector.
-     * @return Number
-     */
+    * Measure the length of this vector  
+    *
+    * @returns {Number} The length value
+    */
     length(){
         var xVal = this.x * this.x
         var yVal = this.y * this.y
@@ -130,9 +184,11 @@ class Vec3 {
         return lengthVal
     }
     /**
-     * Returns the distance between this vector and the given vector.
-     * @return Number
-     */
+    * Calculate the distance between two vector's endpoints  
+    *
+    * @param {vec3} v A vector
+    * @returns {vec3} The distance value
+    */
     distance(v){
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the distance function was not of type Vec3');
@@ -144,16 +200,25 @@ class Vec3 {
         return distanceVal
     }
     /**
-     * This method should return a vector in the same direction as this vector but with a length of one.
-     * @return Vec3
-     */
+    * Normalize a vector so that it's length is 1  
+    *
+    * @returns {Vec3} The normalized Vector
+    */
     normalize(){
+        var vecLength = this.length()
+        var newX = this.x / vecLength
+        var newY = this.y / vecLength
+        var newZ = this.z / vecLength
 
+        var newVec = new Vec3(newX,newY,newZ)
+        return newVec
     }
     /**
-     * Returns true if all the components of this vector and the given vector are equal, false otherwise.
-     * @return Vec3
-     */
+    * Checks if the this vector is equal to the given vector  
+    *
+    * @param {vec3} v A vector
+    * @returns {Boolean} True if equal, false if not
+    */
     equals(v){
         if(v instanceof Vec3 === false){
             throw new TypeError('The given parameter for the equals function was not of type Vec3');
@@ -166,7 +231,12 @@ class Vec3 {
             equalBool = false
             return equalBool
         }
-    }
+    }/**
+    * Generate the cross product of two vectors  
+    *
+    * @param {vec3} v A vector
+    * @returns {vec3} The cross product between the two given vectors
+    */
     toPrimitive(hint) {
         if(typeof(hint) !== "string") {
             throw new TypeError('The given parameter for the toPrimative function was not of type String');
@@ -176,29 +246,4 @@ class Vec3 {
     }
 }
 
-var testString = "test"
-
-var a = new Vec3(4,6,8);
-var b = a.copy();
-var c = a.add(b);
-var d = a.sub(c);
-var e = a.scale(3);
-var f = a.dot(b);
-var testEqual = a.equals(b)
-var testEqualf = a.equals(d)
-var testLength = a.length()
-var toPrim = e.toPrimitive("string")
-var angleBet = a.angleBetween(c)
-d.y = 4;
-
-
-
-console.log("A: ",a)
-console.log("C: ",c)
-console.log("D: ",d)
-console.log("E: ",e)
-console.log("F: ",f)
-console.log("Equal1: ",testEqual)
-console.log("Equal2: ",testEqualf)
-console.log("Length: ",testLength)
-console.log("angleBet: ", angleBet)
+module.exports = Vec3
