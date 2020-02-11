@@ -23,21 +23,21 @@ class Vec3 {
     }
     /**
     * get the x value of a vec3 object
-    * @returns {Number} the x value of a vec3 object
+    * @const {Number} x value of a vec3 object
     */
     get x() {
         return this[_x]
     }
     /**
     * get the y value of a vec3 object
-    * @returns {Number} the y value of a vec3 object
+    * @const {Number}  y value of a vec3 object
     */
     get y() {
         return this[_y]
     }
     /**
     * get the z value of a vec3 object
-    * @returns {Number} the z value of a vec3 object
+    * @const {Number} z value of a vec3 object
     */
     get z() {
         return this[_z]
@@ -56,6 +56,7 @@ class Vec3 {
     *
     * @param {vec3} v A vec3 object
     * @returns {vec3} The sum of the two vectors
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     add(v) {
         if(v instanceof Vec3 === false){
@@ -74,6 +75,7 @@ class Vec3 {
     *
     * @param {vec3} v A vec3 object
     * @returns {vec3} The difference of the two vectors
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     sub(v) {
         if(v instanceof Vec3 === false){
@@ -91,6 +93,7 @@ class Vec3 {
     *
     * @param {number} s A number
     * @returns {vec3} A scaled vec3 object
+    * @throws {TypeError} If the paramater is not of type Number
     */
     scale(s) {
         if(typeof(s) !== 'number') {
@@ -108,6 +111,7 @@ class Vec3 {
     *
     * @param {vec3} v A vec3 object
     * @returns {number} The dot product result of two vectors
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     dot(v){
         if(v instanceof Vec3 === false){
@@ -121,6 +125,7 @@ class Vec3 {
     *
     * @param {vec3} v A vector
     * @returns {vec3} The cross product between the two given vectors
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     cross(v){
         if(v instanceof Vec3 === false){
@@ -148,6 +153,8 @@ class Vec3 {
     *
     * @param {vec3} v A vector
     * @returns {vec3} The angle value
+    * @throws {TypeError} If the paramater is not of type Vec3
+    * @throws {Error} If the parameter is a zero vector
     */
     angleBetween(v){
         if(v instanceof Vec3 === false){
@@ -172,8 +179,7 @@ class Vec3 {
 
     }
     /**
-    * Measure the length of this vector  
-    *
+    * Measure the length of this vector
     * @returns {Number} The length value
     */
     length(){
@@ -184,10 +190,10 @@ class Vec3 {
         return lengthVal
     }
     /**
-    * Calculate the distance between two vector's endpoints  
-    *
+    * Calculate the distance between two vector's endpoints
     * @param {vec3} v A vector
     * @returns {vec3} The distance value
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     distance(v){
         if(v instanceof Vec3 === false){
@@ -200,8 +206,7 @@ class Vec3 {
         return distanceVal
     }
     /**
-    * Normalize a vector so that it's length is 1  
-    *
+    * Normalize a vector so that it's length is 1
     * @returns {Vec3} The normalized Vector
     */
     normalize(){
@@ -218,6 +223,7 @@ class Vec3 {
     *
     * @param {vec3} v A vector
     * @returns {Boolean} True if equal, false if not
+    * @throws {TypeError} If the paramater is not of type Vec3
     */
     equals(v){
         if(v instanceof Vec3 === false){
@@ -237,7 +243,7 @@ class Vec3 {
     * @param {vec3} v A vector
     * @returns {vec3} The cross product between the two given vectors
     */
-    toPrimitive(hint) {
+    [Symbol.toPrimitive](hint) {
         if(typeof(hint) !== "string") {
             throw new TypeError('The given parameter for the toPrimative function was not of type String');
         }
