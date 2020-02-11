@@ -44,7 +44,6 @@ class Vec3 {
     }
     /**
     * Copy a vec3 object
-    *
     * @returns {vec3} a copy of a given Vec3 object
     */
     copy() {
@@ -53,7 +52,6 @@ class Vec3 {
     }
     /**
     * Add 2 vec3 objects together
-    *
     * @param {vec3} v A vec3 object
     * @returns {vec3} The sum of the two vectors
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -72,7 +70,6 @@ class Vec3 {
     }
     /**
     * Subtract 2 vec3 objects together
-    *
     * @param {vec3} v A vec3 object
     * @returns {vec3} The difference of the two vectors
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -90,7 +87,6 @@ class Vec3 {
     }
     /**
     * Scale a vec3 object by a given amount  
-    *
     * @param {number} s A number
     * @returns {vec3} A scaled vec3 object
     * @throws {TypeError} If the paramater is not of type Number
@@ -107,8 +103,7 @@ class Vec3 {
         return newVec;
     }
     /**
-    * Generate the dot product between two vec3 objects  
-    *
+    * Generate the dot product between two vec3 objects
     * @param {vec3} v A vec3 object
     * @returns {number} The dot product result of two vectors
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -122,7 +117,6 @@ class Vec3 {
     }
     /**
     * Generate the cross product of two vectors  
-    *
     * @param {vec3} v A vector
     * @returns {vec3} The cross product between the two given vectors
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -140,7 +134,6 @@ class Vec3 {
     }
     /**
     * Measure the angle between this vector and the x-axis  
-    *
     * @returns {Number} The angle value
     */
     angle(){
@@ -149,8 +142,7 @@ class Vec3 {
         
     }
     /**
-    * Measure the angle between this vector and the given vector 
-    *
+    * Measure the angle between this vector and the given vector
     * @param {vec3} v A vector
     * @returns {vec3} The angle value
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -219,8 +211,7 @@ class Vec3 {
         return newVec
     }
     /**
-    * Checks if the this vector is equal to the given vector  
-    *
+    * Checks if the this vector is equal to the given vector
     * @param {vec3} v A vector
     * @returns {Boolean} True if equal, false if not
     * @throws {TypeError} If the paramater is not of type Vec3
@@ -238,8 +229,7 @@ class Vec3 {
             return equalBool
         }
     }/**
-    * Generate the cross product of two vectors  
-    *
+    * Generate the cross product of two vectors
     * @param {vec3} v A vector
     * @returns {vec3} The cross product between the two given vectors
     */
@@ -253,3 +243,7 @@ class Vec3 {
 }
 
 module.exports = Vec3
+
+
+var a = new Vec3(1,2,3)
+console.log(a)
