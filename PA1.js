@@ -243,7 +243,3 @@ class Vec3 {
 }
 
 module.exports = Vec3
-
-
-var a = new Vec3(1,2,3)
-console.log(a)
